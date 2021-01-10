@@ -12,6 +12,7 @@ import redis from 'redis';
 import RateLimit from 'express-rate-limit';
 import RedisStore from 'rate-limit-redis';
 
+import './database';
 import routes from './routes';
 import { setupWebSocket } from './websocket';
 
