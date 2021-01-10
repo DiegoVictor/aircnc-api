@@ -22,18 +22,7 @@ import storage from './config/storage';
 
 const Route = Router();
 
-Route.post(
-  '/sessions',
-  (() => {
-    if (!['test', 'development'].includes(process.env.NODE_ENV)) {
-      const BruteForce = new ExpressBrute(
-        new RedisStore({
-          host: process.env.REDIS_HOST,
-          port: process.env.REDIS_PORT,
-        })
-      );
-      return BruteForce.prevent;
-    }
+const routes = Router();
 
     return (req, res, next) => {
       next();
