@@ -3,6 +3,7 @@ import Multer from 'multer';
 import ExpressBrute from 'express-brute';
 import RedisStore from 'express-brute-redis';
 
+import DashboardController from './app/controllers/DashboardController';
 import SessionController from './app/controllers/SessionController';
 import PendingController from './app/controllers/PendingController';
 import SpotController from './app/controllers/SpotController';
