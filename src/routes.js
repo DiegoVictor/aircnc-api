@@ -1,7 +1,5 @@
 import { Router } from 'express';
-import Multer from 'multer';
-import ExpressBrute from 'express-brute';
-import RedisStore from 'express-brute-redis';
+import multer from 'multer';
 
 import DashboardController from './app/controllers/DashboardController';
 import SessionController from './app/controllers/SessionController';
@@ -24,15 +22,9 @@ const Route = Router();
 
 const routes = Router();
 
-    return (req, res, next) => {
-      next();
-    };
-  })(),
-  SessionStore,
-  SessionController.store
-);
+routes.post('/sessions', sessionValidator, sessionController.store);
 
-Route.use(Authenticate);
+routes.use(Authenticate);
 
 Route.get('/spots', SpotController.index);
 Route.get('/spots/:id', SpotController.show);
