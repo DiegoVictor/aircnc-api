@@ -19,6 +19,7 @@ setupWebSocket(server);
 app.use(helmet());
 app.use(express.json());
 
+app.use('/files', express.static(path.resolve(__dirname, '..', 'uploads')));
 app.use('/v1', routes);
 
 export default server;
