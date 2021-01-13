@@ -7,6 +7,7 @@ import path from 'path';
 import http from 'http';
 import helmet from 'helmet';
 import { errors } from 'celebrate';
+import { isBoom } from '@hapi/boom';
 
 import './database';
 import routes from './routes';
@@ -24,4 +25,18 @@ app.use('/files', express.static(path.resolve(__dirname, '..', 'uploads')));
 app.use('/v1', routes);
 
 app.use(errors());
+app.use((err, _, res, next) => {
+  if (isBoom(err)) {
+    const { statusCode, payload } = err.output;
+
+    return res.status(statusCode).json({
+      ...payload,
+      ...err.data,
+      docs: process.env.DOCS_URL,
+    });
+  }
+
+  return next(err);
+});
+
 export default server;
