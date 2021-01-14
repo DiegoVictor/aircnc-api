@@ -1,15 +1,36 @@
 import Booking from '../models/Booking';
 import EmitBooking from '../services/EmitBooking';
 
+const emitBooking = new EmitBooking();
+
 class BookingController {
   async index(req, res) {
-    const { user_id: user } = req;
-    const bookings = await Booking.find({
+    const { user_id: user, hostUrl } = req;
+
+    const conditions = {
       date: { $gte: new Date() },
       approved: { $ne: false },
       user,
-    }).populate('spot');
-    return res.json(bookings);
+    };
+
+    const bookings = await Booking.find(conditions).populate('spot');
+
+    const count = await Booking.countDocuments(conditions);
+    res.header('X-Total-Count', count);
+
+    return res.json(
+      bookings.map(booking => {
+        const bookingSerialized = booking.toJSON();
+
+        return {
+          ...bookingSerialized,
+          spot: {
+            ...bookingSerialized.spot,
+            url: `${hostUrl}/v1/spots/${bookingSerialized.spot._id}`,
+          },
+        };
+      })
+    );
   }
 
   async store(req, res) {
@@ -24,7 +45,7 @@ class BookingController {
       .populate('user')
       .execPopulate();
 
-    await EmitBooking.run({
+    await emitBooking.execute({
       user_id: booking.spot.user,
       booking,
       event: 'booking_request',
@@ -34,4 +55,4 @@ class BookingController {
   }
 }
 
-export default new BookingController();
+export default BookingController;
