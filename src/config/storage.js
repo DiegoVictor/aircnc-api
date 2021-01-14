@@ -1,10 +1,10 @@
-import Multer from 'multer';
+import multer from 'multer';
 import path from 'path';
 
 export default {
-  storage: Multer.diskStorage({
+  storage: multer.diskStorage({
     destination: path.resolve(__dirname, '..', '..', 'uploads'),
-    filename: (req, file, callback) => {
+    filename: (_, file, callback) => {
       const ext = path.extname(file.originalname);
       callback(
         null,
