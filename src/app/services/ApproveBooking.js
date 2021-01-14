@@ -4,7 +4,7 @@ import Booking from '../models/Booking';
 import Spot from '../models/Spot';
 
 class ApproveBooking {
-  async run({ booking_id, user }) {
+  async execute({ booking_id, user }) {
     const spots = await Spot.find({ user });
     const booking = await Booking.findOne({
       _id: booking_id,
@@ -12,7 +12,9 @@ class ApproveBooking {
     }).populate('spot');
 
     if (!booking) {
-      throw unauthorized('Only the spot owner can approve bookings');
+      throw unauthorized('Only the spot owner can approve bookings', 'sample', {
+        code: 342,
+      });
     }
 
     booking.approved = true;
@@ -22,4 +24,4 @@ class ApproveBooking {
   }
 }
 
-export default new ApproveBooking();
+export default ApproveBooking;
