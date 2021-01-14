@@ -1,7 +1,7 @@
 import { findConnection, emit } from '../../websocket';
 
 class EmitBooking {
-  async run({ user_id, booking, event }) {
+  async execute({ user_id, booking, event }) {
     const booking_user_socket_id = await findConnection(user_id);
     if (booking_user_socket_id) {
       emit(booking_user_socket_id, event, booking);
@@ -9,4 +9,4 @@ class EmitBooking {
   }
 }
 
-export default new EmitBooking();
+export default EmitBooking;
