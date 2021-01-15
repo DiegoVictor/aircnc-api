@@ -7,6 +7,8 @@ import DeleteSpot from '../services/DeleteSpot';
 import UpdateSpot from '../services/UpdateSpot';
 
 const deleteSpot = new DeleteSpot();
+const updateSpot = new UpdateSpot();
+
 class SpotController {
   async index(req, res) {
     const { currentUrl } = req;
