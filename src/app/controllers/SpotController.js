@@ -9,12 +9,23 @@ import UpdateSpot from '../services/UpdateSpot';
 const deleteSpot = new DeleteSpot();
 class SpotController {
   async index(req, res) {
+    const { currentUrl } = req;
     const { tech } = req.query;
+
+    const spots = await Spot.find({ techs: tech });
     const count = await Spot.countDocuments({ techs: tech });
     res.header('X-Total-Count', count);
+
+    return res.json(
+      spots.map(spot => ({
+        ...spot.toJSON(),
+        url: `${currentUrl}/${spot._id}`,
+      }))
+    );
   }
 
   async show(req, res) {
+    const { currentUrl } = req;
     const { id } = req.params;
     const { thumbnail_url, company, price, techs, user } = await Spot.findById(
       id
@@ -34,6 +45,7 @@ class SpotController {
       techs,
       thumbnail_url,
       bookings,
+      url: currentUrl,
     });
   }
 
