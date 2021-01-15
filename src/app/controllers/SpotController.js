@@ -22,7 +22,9 @@ class SpotController {
       spot: id,
       date: { $gte: new Date() },
       approved: true,
-    }).populate('user');
+    })
+      .limit(30)
+      .populate('user');
 
     return res.json({
       user,
