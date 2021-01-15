@@ -10,7 +10,8 @@ const deleteSpot = new DeleteSpot();
 class SpotController {
   async index(req, res) {
     const { tech } = req.query;
-    return res.json(await Spot.find({ techs: tech }));
+    const count = await Spot.countDocuments({ techs: tech });
+    res.header('X-Total-Count', count);
   }
 
   async show(req, res) {
