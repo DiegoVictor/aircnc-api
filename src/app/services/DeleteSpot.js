@@ -4,11 +4,11 @@ import Booking from '../models/Booking';
 import Spot from '../models/Spot';
 
 class DeleteSpot {
-  async run({ _id, user }) {
+  async execute({ _id, user }) {
     const spot = await Spot.findOne({ _id, user });
 
     if (!spot) {
-      throw badRequest('Spot does not exists');
+      throw badRequest('Spot does not exists', { code: 344 });
     }
 
     const bookings = await Booking.find({
@@ -18,7 +18,11 @@ class DeleteSpot {
     });
 
     if (bookings.length > 0) {
-      throw unauthorized('You can not remove spot with bookings approved');
+      throw unauthorized(
+        'You can not remove spot with bookings approved',
+        'sample',
+        { code: 341 }
+      );
     }
 
     await spot.remove();
@@ -27,4 +31,4 @@ class DeleteSpot {
   }
 }
 
-export default new DeleteSpot();
+export default DeleteSpot;
