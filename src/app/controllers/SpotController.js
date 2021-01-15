@@ -6,6 +6,7 @@ import User from '../models/User';
 import DeleteSpot from '../services/DeleteSpot';
 import UpdateSpot from '../services/UpdateSpot';
 
+const deleteSpot = new DeleteSpot();
 class SpotController {
   async index(req, res) {
     const { tech } = req.query;
@@ -84,8 +85,8 @@ class SpotController {
     const { id: _id } = req.params;
     const { user_id: user } = req;
 
-    const spot = await DeleteSpot.run({ _id, user });
-    return res.json(spot);
+    await deleteSpot.execute({ _id, user });
+    return res.sendStatus(204);
   }
 }
 
