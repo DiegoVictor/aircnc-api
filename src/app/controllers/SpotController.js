@@ -37,15 +37,11 @@ class SpotController {
   async store(req, res) {
     const { user_id } = req;
     const { company, techs, price } = req.body;
-    let filename;
-
-    if (typeof req.file === 'object') {
-      filename = req.file.filename;
-    }
+    const { filename } = req.file;
 
     const user = await User.findById(user_id);
     if (!user) {
-      throw badRequest('User does not exists');
+      throw badRequest('User does not exists', { code: 144 });
     }
 
     const spot = await Spot.create({
