@@ -60,7 +60,7 @@ class SpotController {
   }
 
   async update(req, res) {
-    const { user_id: user } = req;
+    const { user_id: user, currentUrl } = req;
     const { id: _id } = req.params;
     const { company, techs, price } = req.body;
     let file;
@@ -69,7 +69,7 @@ class SpotController {
       file = req.file;
     }
 
-    const spot = await UpdateSpot.run({
+    const spot = await updateSpot.execute({
       _id,
       file,
       user,
@@ -78,7 +78,10 @@ class SpotController {
       price,
     });
 
-    return res.json(spot);
+    return res.json({
+      ...spot,
+      url: currentUrl,
+    });
   }
 
   async destroy(req, res) {
