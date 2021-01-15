@@ -1,7 +1,7 @@
 import Spot from '../models/Spot';
 
 class UpdateSpot {
-  async run({ _id, company, file, price, techs = [], user }) {
+  async execute({ _id, company, file, price, techs = [], user }) {
     const data = {
       company,
       price,
@@ -13,16 +13,15 @@ class UpdateSpot {
 
     data.techs = techs.split(',').map(tech => tech.trim());
 
-    const spot = await Spot.findOneAndUpdate({ _id, user }, data);
+    const spot = await Spot.findOneAndUpdate({ _id, user }, data, {
+      new: true,
+    });
 
     return {
-      spot: spot.toJSON(),
-      company,
-      price,
-      techs,
+      ...spot.toJSON(),
       thumbnail: data.thumbnail,
     };
   }
 }
 
-export default new UpdateSpot();
+export default UpdateSpot;
