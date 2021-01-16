@@ -17,4 +17,4 @@ class PendingController {
   }
 }
 
-export default new PendingController();
+export default PendingController;

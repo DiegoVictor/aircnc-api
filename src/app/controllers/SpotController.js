@@ -106,4 +106,4 @@ class SpotController {
   }
 }
 
-export default new SpotController();
+export default SpotController;
