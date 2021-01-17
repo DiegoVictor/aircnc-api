@@ -9,6 +9,13 @@ import BookingController from './app/controllers/BookingController';
 import ApprovalController from './app/controllers/ApprovalController';
 import RejectionController from './app/controllers/RejectionController';
 import Authenticate from './app/middlewares/Authenticate';
+import sessionValidator from './app/validators/sessionValidator';
+import spotValidator from './app/validators/spotValidator';
+import spotAndIdValidator from './app/validators/spotAndIdValidator';
+import bookingValidator from './app/validators/bookingValidator';
+import idValidator from './app/validators/idValidator';
+import bookingIdValidator from './app/validators/bookingIdValidator';
+
 import storage from './config/storage';
 
 const sessionController = new SessionController();
@@ -25,29 +32,41 @@ routes.post('/sessions', sessionValidator, sessionController.store);
 
 routes.use(Authenticate);
 
-Route.get('/spots', SpotController.index);
-Route.get('/spots/:id', SpotController.show);
-Route.post(
+routes.get('/spots', spotController.index);
+routes.get('/spots/:id', idValidator, spotController.show);
+routes.post(
   '/spots',
-  Multer(storage).single('thumbnail'),
-  SpotStore,
-  SpotController.store
+  multer(storage).single('thumbnail'),
+  spotValidator,
+  spotController.store
 );
-Route.put(
+routes.put(
   '/spots/:id',
-  Multer(storage).single('thumbnail'),
-  SpotUpdate,
-  SpotController.update
+  multer(storage).single('thumbnail'),
+  spotAndIdValidator,
+  spotController.update
 );
-Route.post('/spots/:spot_id/booking', BookingStore, BookingController.store);
-Route.delete('/spots/:id', SpotController.destroy);
+routes.post(
+  '/spots/:spot_id/booking',
+  bookingValidator,
+  bookingController.store
+);
+routes.delete('/spots/:id', idValidator, spotController.destroy);
 
-Route.get('/dashboard', DashboardController.index);
+routes.get('/dashboard', dashboardController.index);
 
-Route.get('/pending', PendingController.index);
+routes.get('/pending', pendingController.index);
 
-Route.get('/bookings', BookingController.index);
-Route.post('/bookings/:booking_id/approval', ApprovalController.store);
-Route.post('/bookings/:booking_id/rejection', RejectionController.store);
+routes.get('/bookings', bookingController.index);
+routes.post(
+  '/bookings/:booking_id/approval',
+  bookingIdValidator,
+  approvalController.store
+);
+routes.post(
+  '/bookings/:booking_id/rejection',
+  bookingIdValidator,
+  rejectionController.store
+);
 
-export default Route;
+export default routes;
