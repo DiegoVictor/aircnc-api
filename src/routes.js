@@ -11,7 +11,13 @@ import RejectionController from './app/controllers/RejectionController';
 import Authenticate from './app/middlewares/Authenticate';
 import storage from './config/storage';
 
-const Route = Router();
+const sessionController = new SessionController();
+const spotController = new SpotController();
+const bookingController = new BookingController();
+const dashboardController = new DashboardController();
+const pendingController = new PendingController();
+const approvalController = new ApprovalController();
+const rejectionController = new RejectionController();
 
 const routes = Router();
 
