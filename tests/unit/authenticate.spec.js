@@ -11,7 +11,7 @@ describe('Authenticate', () => {
 
   it('should not be able autheticate', async () => {
     const response = await request(app)
-      .get('/developers')
+      .get('/v1/developers')
       .expect(401)
       .send();
 
@@ -23,9 +23,9 @@ describe('Authenticate', () => {
 
   it('should not be able autheticate', async () => {
     const response = await request(app)
-      .get('/developers')
+      .get('/v1/developers')
       .expect(401)
-      .set('Authorization', faker.random.uuid())
+      .set('Authorization', faker.random.alphaNumeric(16))
       .send();
 
     expect(response.body).toMatchObject({
