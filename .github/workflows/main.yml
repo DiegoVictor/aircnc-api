@@ -5,6 +5,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      APP_URL: 'http://localhost'
+      APP_PORT: '3333'
+      MONGO_URL: 'mongodb://127.0.0.1:27017/aircnc'
+      REDIS_HOST: '127.0.0.1'
+      REDIS_PORT: '6379'
+      JWT_EXPIRATION_TIME: '7d'
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      DOCS_URL: 'https://github.com/DiegoVictor/aircnc-api#errors-reference'
     steps:
       - uses: actions/setup-node@v1
         with:
