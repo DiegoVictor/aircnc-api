@@ -2,15 +2,16 @@ import request from 'supertest';
 import Mongoose from 'mongoose';
 
 import app from '../../src/app';
-import factory from '../utils/factories';
+import factory from '../utils/factory';
 import User from '../../src/app/models/User';
 import Spot from '../../src/app/models/Spot';
 import jwtoken from '../utils/jwtoken';
 
-let token;
-let user;
-
 describe('Dashboard', () => {
+  const url = `${process.env.APP_URL}:${process.env.APP_PORT}/v1/spots`;
+  let token;
+  let user;
+
   beforeEach(async () => {
     await User.deleteMany();
     await Spot.deleteMany();
@@ -24,19 +25,22 @@ describe('Dashboard', () => {
   });
 
   it('should be get a list of spots of one user', async () => {
-    const spots = await factory.createMany('Spot', 3, { user: user._id });
+    await factory.createMany('Spot', 3, { user: user._id });
+    const spots = await Spot.find({ user: user._id });
 
     const response = await request(app)
-      .get('/dashboard')
+      .get('/v1/dashboard')
       .set('Authorization', `Bearer ${token}`)
       .send();
 
     spots.forEach(spot => {
-      expect(response.body).toContainEqual(
-        expect.objectContaining({
-          _id: spot._id.toString(),
-        })
-      );
+      expect(response.body).toContainEqual({
+        ...spot.toJSON(),
+        _id: spot._id.toString(),
+        user: spot.user.toString(),
+        thumbnail_url: `${process.env.APP_URL}:${process.env.APP_PORT}/files/${spot.thumbnail}`,
+        url: `${url}/${spot._id}`,
+      });
     });
   });
 });

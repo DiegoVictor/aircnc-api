@@ -2,7 +2,7 @@ import request from 'supertest';
 import Mongoose from 'mongoose';
 
 import app from '../../src/app';
-import factory from '../utils/factories';
+import factory from '../utils/factory';
 import User from '../../src/app/models/User';
 
 describe('Session', () => {
@@ -18,7 +18,7 @@ describe('Session', () => {
     const { _id, email } = await factory.create('User');
 
     const response = await request(app)
-      .post('/sessions')
+      .post('/v1/sessions')
       .send({ email });
 
     expect(response.body).toMatchObject({
@@ -34,7 +34,7 @@ describe('Session', () => {
     const { email } = await factory.attrs('User');
 
     const response = await request(app)
-      .post('/sessions')
+      .post('/v1/sessions')
       .send({ email });
 
     expect(response.body).toMatchObject({
@@ -42,18 +42,6 @@ describe('Session', () => {
         email,
       },
       token: expect.any(String),
-    });
-  });
-
-  it('should fail in validation', async () => {
-    const response = await request(app)
-      .post('/sessions')
-      .expect(400)
-      .send({});
-
-    expect(response.body).toMatchObject({
-      error: 'Bad Request',
-      message: 'Validation fails',
     });
   });
 });

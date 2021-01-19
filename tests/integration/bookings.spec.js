@@ -3,18 +3,19 @@ import faker from 'faker';
 import Mongoose from 'mongoose';
 
 import app from '../../src/app';
-import factory from '../utils/factories';
-import { connect, emit, to } from '../../__mocks__/socket.io';
+import factory from '../utils/factory';
+import { connect, emit, to } from '../../mocks/socket.io';
 import '../utils/extend';
 import User from '../../src/app/models/User';
 import Spot from '../../src/app/models/Spot';
 import Booking from '../../src/app/models/Booking';
 import jwtoken from '../utils/jwtoken';
 
-let token;
-let user;
-
 describe('Booking', () => {
+  const url = `${process.env.APP_URL}:${process.env.APP_PORT}/v1/spots`;
+  let token;
+  let user;
+
   beforeEach(async () => {
     await User.deleteMany();
     await Spot.deleteMany();
@@ -28,19 +29,39 @@ describe('Booking', () => {
     await Mongoose.disconnect();
   });
 
-  it("should be able to user's bookings", async () => {
-    const bookings = await factory.createMany('Booking', 3, { user: user._id });
+  it("should be able to get user's bookings", async () => {
+    const spot = await factory.create('Spot', {
+      user: user._id.toString(),
+    });
+    await factory.createMany('Booking', 3, {
+      user: user._id,
+      spot,
+    });
+
+    const bookings = await Booking.find({
+      date: { $gte: new Date() },
+      approved: { $ne: false },
+      user: user._id,
+    }).populate('spot');
 
     const response = await request(app)
-      .get('/bookings')
+      .get('/v1/bookings')
       .set('Authorization', `Bearer ${token}`);
 
     bookings.forEach(booking => {
-      expect(response.body).toContainEqual(
-        expect.objectContaining({
-          _id: booking._id.toString(),
-        })
-      );
+      expect(response.body).toContainEqual({
+        ...booking.toJSON(),
+        _id: booking._id.toString(),
+        spot: {
+          ...booking.spot.toJSON(),
+          _id: booking.spot._id.toString(),
+          user: booking.spot.user.toString(),
+          thumbnail_url: `${process.env.APP_URL}:${process.env.APP_PORT}/files/${booking.spot.thumbnail}`,
+          url: `${url}/${booking.spot._id}`,
+        },
+        user: booking.user.toString(),
+        date: booking.date.toISOString(),
+      });
     });
   });
 
@@ -51,7 +72,7 @@ describe('Booking', () => {
     const date = faker.date.future();
 
     const response = await request(app)
-      .post(`/spots/${spot._id}/booking`)
+      .post(`/v1/spots/${spot._id}/booking`)
       .set('Authorization', `Bearer ${token}`)
       .send({
         date,
@@ -61,10 +82,7 @@ describe('Booking', () => {
       expect(response.body.spot.techs).toContainEqual(tech);
     });
 
-    delete response.body.spot.techs;
-
     spot = spot.toJSON();
-    delete spot.techs;
     spot._id = spot._id.toString();
     spot.user = spot.user.toString();
 
@@ -74,46 +92,31 @@ describe('Booking', () => {
     });
   });
 
-  it('should be able to fail on validation', async () => {
-    const { _id } = await factory.create('Spot');
-
-    const response = await request(app)
-      .post(`/spots/${_id}/booking`)
-      .set('Authorization', `Bearer ${token}`)
-      .expect(400)
-      .send();
-
-    expect(response.body).toMatchObject({
-      error: 'Bad Request',
-      message: 'Validation fails',
-    });
-  });
-
   it('should be able to emit event to requested spot', async () => {
-    const { _id: spot_owner_id } = await factory.create('User');
+    const { _id: spotOwnerId } = await factory.create('User');
     const spot = await factory.create('Spot', {
-      user: spot_owner_id,
+      user: spotOwnerId,
     });
     const date = faker.date.future();
-    const socket_id = faker.random.number();
+    const socketId = faker.random.number();
 
     connect({
-      id: socket_id,
+      id: socketId,
       handshake: {
         query: {
-          user_id: spot_owner_id.toString(),
+          user_id: spotOwnerId.toString(),
         },
       },
     });
 
     await request(app)
-      .post(`/spots/${spot._id}/booking`)
+      .post(`/v1/spots/${spot._id}/booking`)
       .set('Authorization', `Bearer ${token}`)
       .send({
         date,
       });
 
-    expect(to).toHaveBeenCalledWith(`${socket_id}`);
+    expect(to).toHaveBeenCalledWith(`${socketId}`);
     expect(emit).toHaveBeenCalledWithMatch('booking_request', {
       spot: spot.toJSON(),
       user: user.toJSON(),
