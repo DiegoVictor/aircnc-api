@@ -9,7 +9,7 @@ export const connect = socket => {
   callback(socket);
 };
 
-export const on = jest.fn((event, cb) => {
+export const on = jest.fn((_, cb) => {
   callback = cb;
 });
 
