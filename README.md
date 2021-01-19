@@ -159,7 +159,7 @@ GET http://localhost:3333/v1/spots
 |`/spots`|GET|:heavy_check_mark:|`tech` and `page` query parameters.|Lists available spots by tech.|Bearer
 |`/spots/:id`|GET|:x:|`id` of the spot.|Return one spot.|Bearer
 |`/spots`|POST|:x:|Body with new spot [form data](https://developer.mozilla.org/docs/Web/API/FormData) (See insomnia file for good example).|Create a new spot.|Bearer
-|`/spots/:id`|PUT|:x:|`id` of the spot, body with spot's `techs`, `company` and `price`.|Update a spot.|Bearer
+|`/spots/:id`|PUT|:x:|`id` of the spot, body with spot's `thumbnail`, `techs`, `company` and `price` (See insomnia file for good example).|Update a spot.|Bearer
 |`/spots/:id`|DELETE|:x:|`id` of the spot.|Delete a spot.|Bearer
 > Routes with `Bearer` as auth method expect an `Authorization` header. See [Bearer Token](#bearer-token) section for more information.
 
@@ -185,24 +185,21 @@ Request body:
 * `POST /spots`
 
 Request body:
-```json
-{
-  "company": "Hackett, Becker and Fadel",
-  "price": 89,
-  "techs": "ReactJS",
-  "thumbnail": <file>
-}
+```
+"company"="Hackett, Becker and Fadel"
+"price"=89
+"techs"="ReactJS"
+"thumbnail"=<file>
 ```
 
 * `PUT /spots`
 
 Request body:
-```json
-{
-  "company": "Becker and Fadel",
-  "price": 115,
-  "techs": "Node.js, ReactJS",
-}
+```
+"company"="Becker and Fadel"
+"price"=115
+"techs"="Node.js, ReactJS"
+"thumbnail"=<file>
 ```
 
 # Running the tests
