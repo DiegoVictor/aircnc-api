@@ -11,7 +11,7 @@ import { isBoom } from '@hapi/boom';
 
 import './database';
 import routes from './routes';
-import RouteAliases from './app/middlewares/RouteAliases';
+import routeAliases from './app/middlewares/routeAliases';
 import { setupWebSocket } from './websocket';
 
 const app = express();
@@ -21,7 +21,7 @@ setupWebSocket(server);
 
 app.use(helmet());
 app.use(cors());
-app.use(RouteAliases);
+app.use(routeAliases);
 app.use(express.json());
 
 app.use('/files', express.static(path.resolve(__dirname, '..', 'uploads')));
