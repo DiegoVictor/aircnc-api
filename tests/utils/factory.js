@@ -22,7 +22,7 @@ factory.define('Spot', Spot, {
   thumbnail: faker.image.image,
   techs: () => {
     const techs = [];
-    for (let i = 0; i < faker.random.number({ min: 1, max: 5 }); i += 1) {
+    for (let i = 0; i < faker.datatype.number({ min: 1, max: 5 }); i += 1) {
       techs.push(faker.random.word());
     }
     return techs;

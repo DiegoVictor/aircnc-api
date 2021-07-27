@@ -69,7 +69,7 @@ describe('Approval', () => {
       spot: spot._id,
       user: bookingUserId,
     });
-    const socketId = faker.random.number();
+    const socketId = faker.datatype.number();
 
     connect({
       id: socketId,
