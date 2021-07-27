@@ -6,9 +6,6 @@ import User from '../models/User';
 import DeleteSpot from '../services/DeleteSpot';
 import UpdateSpot from '../services/UpdateSpot';
 
-const deleteSpot = new DeleteSpot();
-const updateSpot = new UpdateSpot();
-
 class SpotController {
   async index(req, res) {
     const { currentUrl } = req;
@@ -82,6 +79,7 @@ class SpotController {
       file = req.file;
     }
 
+    const updateSpot = new UpdateSpot();
     const spot = await updateSpot.execute({
       _id,
       file,
@@ -101,6 +99,7 @@ class SpotController {
     const { id: _id } = req.params;
     const { user_id: user } = req;
 
+    const deleteSpot = new DeleteSpot();
     await deleteSpot.execute({ _id, user });
     return res.sendStatus(204);
   }

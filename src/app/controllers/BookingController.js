@@ -1,8 +1,6 @@
 import Booking from '../models/Booking';
 import EmitBooking from '../services/EmitBooking';
 
-const emitBooking = new EmitBooking();
-
 class BookingController {
   async index(req, res) {
     const { user_id: user, hostUrl } = req;
@@ -45,6 +43,7 @@ class BookingController {
       .populate('user')
       .execPopulate();
 
+    const emitBooking = new EmitBooking();
     await emitBooking.execute({
       user_id: booking.spot.user,
       booking,
