@@ -44,16 +44,19 @@ $ npm install
 > Was installed and configured the [`eslint`](https://eslint.org/) and [`prettier`](https://prettier.io/) to keep the code clean and patterned.
 
 ## Configuring
-The application use two databases: [MongoDB](https://www.mongodb.com/) and [Redis](https://redis.io/). For the fastest setup is recommended to use [docker](https://www.docker.com/), see below how to setup ever database.
+The application uses two databases: [MongoDB](https://www.mongodb.com/) and [Redis](https://redis.io/). For the fastest setup is recommended to use [docker-compose](https://docs.docker.com/compose/), you just need to up all services:
+```
+$ docker-compose up -d
+```
 
 ### Redis
-Responsible to store data utilized by the websocket to alert users when books are made, approved or rejected. To create a redis container:
+Responsible to store data utilized by the websocket to alert users when books are made, approved or rejected. If for any reason you would like to create a Redis container instead of use `docker-compose`, you can do it by running the following command:
 ```
 $ docker run --name aircnc-redis -d -p 6379:6379 redis:alpine
 ```
 
 ### MongoDB
-Responsible to store almost all application data.  You can create a MongoDB container like so:
+Responsible to store almost all application data. If for any reason you would like to create a MongoDB container instead of use `docker-compose`, you can do it by running the following command:
 ```
 $ docker run --name aircnc-mongo -d -p 27017:27017 mongo
 ```
@@ -68,11 +71,10 @@ In this file you may configure your Redis and MongoDB database connection, JWT s
 |NODE_ENV|App environment.|`development`
 |JWT_SECRET|A alphanumeric random string. Used to create signed tokens.| -
 |JWT_EXPIRATION_TIME|How long time will be the token valid. See [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken#usage) repo for more information.|`7d`
-|MONGO_URL|MongoDB connection url.|`mongodb://127.0.0.1:27017/tindev`
-|REDIS_HOST|Redis host.|`127.0.0.1`
+|MONGO_URL|MongoDB connection url.|`mongodb://mongo:27017/tindev`
+|REDIS_HOST|Redis host.|`redis`
 |REDIS_PORT|Redis port.|`6379`
 |DOCS_URL|An url to docs where users can find more information about the app's internal code errors.|`https://github.com/DiegoVictor/aircnc-api#errors-reference`
-> For Windows users using Docker Toolbox maybe be necessary in your `.env` file set the host of the MongoDB and Redis to `192.168.99.100` (docker machine IP) instead of `localhost` or `127.0.0.1`.
 
 # Usage
 To start up the app run:
