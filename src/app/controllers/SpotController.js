@@ -16,7 +16,7 @@ class SpotController {
     res.header('X-Total-Count', count);
 
     return res.json(
-      spots.map(spot => ({
+      spots.map((spot) => ({
         ...spot.toJSON(),
         url: `${currentUrl}/${spot._id}`,
       }))
