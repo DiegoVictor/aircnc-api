@@ -8,7 +8,7 @@ class ApproveBooking {
     const spots = await Spot.find({ user });
     const booking = await Booking.findOne({
       _id: booking_id,
-      spot: { $in: spots.map(spot => spot._id) },
+      spot: { $in: spots.map((spot) => spot._id) },
     }).populate('spot');
 
     if (!booking) {

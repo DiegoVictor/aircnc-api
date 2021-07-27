@@ -61,7 +61,7 @@ class SpotController {
     const spot = await Spot.create({
       user: user_id,
       company,
-      techs: techs.split(',').map(tech => tech.trim()),
+      techs: techs.split(',').map((tech) => tech.trim()),
       price,
       thumbnail: filename,
     });
@@ -101,6 +101,7 @@ class SpotController {
 
     const deleteSpot = new DeleteSpot();
     await deleteSpot.execute({ _id, user });
+
     return res.sendStatus(204);
   }
 }

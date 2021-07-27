@@ -4,6 +4,7 @@ import Spot from '../models/Spot';
 class PendingController {
   async index(req, res) {
     const { user_id: user, hostUrl } = req;
+
     const spots = await Spot.find({ user });
     const bookings = await Booking.find({
       approved: { $exists: false },

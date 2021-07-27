@@ -17,7 +17,7 @@ class BookingController {
     res.header('X-Total-Count', count);
 
     return res.json(
-      bookings.map(booking => {
+      bookings.map((booking) => {
         const bookingSerialized = booking.toJSON();
 
         return {
@@ -38,10 +38,7 @@ class BookingController {
 
     let booking = await Booking.create({ user, spot, date });
 
-    booking = await booking
-      .populate('spot')
-      .populate('user')
-      .execPopulate();
+    booking = await booking.populate('spot').populate('user').execPopulate();
 
     const emitBooking = new EmitBooking();
     await emitBooking.execute({

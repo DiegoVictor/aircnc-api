@@ -10,7 +10,7 @@ class DashboardController {
     res.header('X-Total-Count', count);
 
     return res.json(
-      spots.map(spot => ({
+      spots.map((spot) => ({
         ...spot.toJSON(),
         url: `${hostUrl}/v1/spots/${spot._id}`,
       }))
