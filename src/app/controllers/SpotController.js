@@ -11,8 +11,10 @@ class SpotController {
     const { currentUrl } = req;
     const { tech } = req.query;
 
-    const spots = await Spot.find({ techs: tech });
-    const count = await Spot.countDocuments({ techs: tech });
+    const [spots, count] = await Promise.all([
+      Spot.find({ techs: { $in: [tech] } }),
+      Spot.countDocuments({ techs: { $in: [tech] } }),
+    ]);
     res.header('X-Total-Count', count);
 
     return res.json(
@@ -26,16 +28,18 @@ class SpotController {
   async show(req, res) {
     const { currentUrl } = req;
     const { id } = req.params;
-    const { thumbnail_url, company, price, techs, user } = await Spot.findById(
-      id
-    );
-    const bookings = await Booking.find({
-      spot: id,
-      date: { $gte: new Date() },
-      approved: true,
-    })
-      .limit(30)
-      .populate('user');
+
+    const [{ thumbnail_url, company, price, techs, user }, bookings] =
+      await Promise.all([
+        Spot.findById(id),
+        Booking.find({
+          spot: id,
+          date: { $gte: new Date() },
+          approved: true,
+        })
+          .limit(30)
+          .populate('user'),
+      ]);
 
     return res.json({
       user,

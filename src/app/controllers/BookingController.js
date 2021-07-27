@@ -11,9 +11,11 @@ class BookingController {
       user,
     };
 
-    const bookings = await Booking.find(conditions).populate('spot');
+    const [bookings, count] = await Promise.all([
+      Booking.find(conditions).populate('spot'),
+      Booking.countDocuments(conditions),
+    ]);
 
-    const count = await Booking.countDocuments(conditions);
     res.header('X-Total-Count', count);
 
     return res.json(
