@@ -14,6 +14,20 @@
     }
   ],
   "paths": {
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "required": [
+          "email"
+        ],
+        "properties": {
+          "email": {
+            "type": "string"
+          }
+        }
+      },
+    },
     "securitySchemes": {
       "bearer": {
         "scheme": "bearer",
