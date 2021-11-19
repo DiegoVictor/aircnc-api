@@ -14,6 +14,64 @@
     }
   ],
   "paths": {
+    "/sessions": {
+      "post": {
+        "tags": ["Sessions"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              },
+              "example": {
+                "email": "johndoe@example.com"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Authenticates user, return a Bearer Token and user's email",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "title": "User",
+                      "allOf": [
+                        {
+                          "title": "User",
+                          "properties": {
+                            "_id": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "$ref": "#/components/schemas/User"
+                        }
+                      ]
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "user": {
+                    "_id": "6137edecf1247f5bd4c2b396",
+                    "email": "johndoe@gmail.com"
+                  },
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMzdlZGVjZjEyNDdmNWJkNGMyYjM5NiIsImlhdCI6MTYzMTA1NTM0MCwiZXhwIjoxNjMxNjYwMTQwfQ.JqqKpS2LBEq79AV3inDtJ3q3j7ir7wzi_m5O15WZGHY"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
   },
   "components": {
     "schemas": {
