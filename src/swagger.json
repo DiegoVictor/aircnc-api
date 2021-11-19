@@ -85,6 +85,34 @@
           }
         }
       },
+      "Spot": {
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "techs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "user": {
+            "type": "string"
+          },
+          "company": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          },
+          "thumbnail": {
+            "type": "string"
+          },
+          "thumbnail_url": {
+            "type": "string"
+          }
+        }
+      },
     },
     "securitySchemes": {
       "bearer": {
