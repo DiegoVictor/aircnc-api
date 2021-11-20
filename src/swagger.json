@@ -114,6 +114,14 @@
         }
       },
     },
+    "headers": {
+      "X-Total-Count": {
+        "description": "Total number of registries in the database",
+        "schema": {
+          "type": "integer"
+        }
+      }
+    },
     "securitySchemes": {
       "bearer": {
         "scheme": "bearer",
