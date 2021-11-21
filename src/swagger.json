@@ -72,6 +72,74 @@
         }
       }
     },
+    "/spots": {
+      "get": {
+        "tags": ["Spots"],
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "tech",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Node.js"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lists available spots by tech",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/Spot"
+                      },
+                      {
+                        "title": "Spot",
+                        "properties": {
+                          "url": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "example": [
+                  {
+                    "_id": "6137f5caabb1fd6124a75fe9",
+                    "techs": [
+                      "Node.js",
+                      "ReactJS",
+                      "ReactNative"
+                    ],
+                    "user": "6137edecf1247f5bd4c2b396",
+                    "company": "Blockcode",
+                    "price": 89,
+                    "thumbnail": "example-1631057354938.jpg",
+                    "thumbnail_url": "http://localhost:3333/files/example-1631057354938.jpg",
+                    "url": "http://localhost:3333/v1/spots/6137eff508f80d2f6488af54"
+                  }
+                ]
+              }
+            },
+            "headers": {
+              "X-Total-Count": {
+                "$ref": "#/components/headers/X-Total-Count"
+              }
+            }
+          }
+        }
+      },
   },
   "components": {
     "schemas": {
