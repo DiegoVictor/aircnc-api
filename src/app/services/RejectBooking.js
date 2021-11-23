@@ -9,8 +9,10 @@ class RejectBooking {
     const spots = await Spot.find({ user });
     const booking = await Booking.findOne({
       _id: booking_id,
-      $or: [{ user }, { spot: spots.map(spot => spot._id) }],
-    }).populate('spot');
+      $or: [{ user }, { spot: spots.map((spot) => spot._id) }],
+    })
+      .populate('spot')
+      .populate('user');
 
     if (!booking) {
       throw unauthorized(
