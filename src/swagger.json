@@ -140,6 +140,87 @@
           }
         }
       },
+      "post": {
+        "tags": ["Spots"],
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "company",
+                  "price",
+                  "techs",
+                  "thumbnail"
+                ],
+                "properties": {
+                  "company": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "number"
+                  },
+                  "techs": {
+                    "type": "string"
+                  },
+                  "thumbnail": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Create a new spot",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Spot"
+                },
+                "example": {
+                  "_id": "6137f5caabb1fd6124a75fe9",
+                  "techs": [
+                    "Node.js",
+                    "ReactJS",
+                    "ReactNative"
+                  ],
+                  "user": "6137edecf1247f5bd4c2b396",
+                  "company": "Blockcode",
+                  "price": 90,
+                  "thumbnail": "example-1631057354938.jpg",
+                  "thumbnail_url": "http://127.0.0.1:3333/files/example-1631057354938.jpg"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User does not exists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "statusCode": 404,
+                  "error": "Not Found",
+                  "message": "User does not exists",
+                  "code": 144,
+                  "docs": "https://github.com/DiegoVictor/aircnc-api#errors-reference"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
   },
   "components": {
     "schemas": {
