@@ -282,6 +282,17 @@
         }
       }
     },
+    "parameters": {
+      "id": {
+        "in": "path",
+        "name": "id",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "example": "613804ba610cf66ad8e75cd0"
+      }
+    },
     "headers": {
       "X-Total-Count": {
         "description": "Total number of registries in the database",
