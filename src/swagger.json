@@ -221,6 +221,112 @@
         }
       }
     },
+    "/spots/{id}": {
+      "get": {
+        "tags": ["Spots"],
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return one spot",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Spot"
+                    },
+                    {
+                      "title": "Spot",
+                      "properties": {
+                        "bookings": {
+                          "type": "array",
+                          "items": {
+                            "title": "Booking",
+                            "properties": {
+                              "_id": {
+                                "type": "string"
+                              },
+                              "user": {
+                                "type": "object",
+                                "allOf": [
+                                  {
+                                    "title": "User",
+                                    "properties": {
+                                      "_id": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "$ref": "#/components/schemas/User"
+                                  }
+                                ]
+                              },
+                              "spot": {
+                                "type": "string"
+                              },
+                              "date": {
+                                "type": "string"
+                              },
+                              "approved": {
+                                "type": "boolean"
+                              }
+                            }
+                          }
+                        },
+                        "url": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "_id": "6137eff508f80d2f6488af54",
+                  "techs": [
+                    "Node.js",
+                    "ReactJS",
+                    "ReactNative"
+                  ],
+                  "user": "6137eff208f80d2f6488af51",
+                  "company": "Blockcode",
+                  "price": 89,
+                  "thumbnail": "example-1631055861917.jpg",
+                  "thumbnail_url": "http://127.0.0.1:3333/files/example-1631055861917.jpg",
+                  "bookings": [
+                    {
+                      "_id": "6137f22159b70c5da4feac05",
+                      "user": {
+                        "_id": "6137eff208f80d2f6488af51",
+                        "email": "johndoe@example.com"
+                      },
+                      "spot": "6137eff508f80d2f6488af54",
+                      "date": "2021-11-02T02:16:52.000Z",
+                      "approved": true
+                    }
+                  ],
+                  "url": "http://localhost:3333/v1/spots/6137eff508f80d2f6488af54"
+                }
+              }
+            },
+            "headers": {
+              "X-Total-Count": {
+                "$ref": "#/components/headers/X-Total-Count"
+              }
+            }
+          }
+        }
+      },
+    },
   },
   "components": {
     "schemas": {
