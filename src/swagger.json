@@ -403,6 +403,61 @@
           }
         }
       },
+      "delete": {
+        "tags": ["Spots"],
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Return one spot"
+          },
+          "401": {
+            "description": "You can not remove spot with bookings approved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                },
+                "example": {
+                  "statusCode": 401,
+                  "error": "Unauthorized",
+                  "message": "You can not remove spot with bookings approved",
+                  "attributes": {
+                    "code": 341,
+                    "error": "You can not remove spot with bookings approved"
+                  },
+                  "docs": "https://github.com/DiegoVictor/aircnc-api#errors-reference"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Spot not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "statusCode": 404,
+                  "error": "Not Found",
+                  "message": "Spot does not exists",
+                  "code": 344,
+                  "docs": "https://github.com/DiegoVictor/aircnc-api#errors-reference"
+                }
+              }
+            }
+          }
+        }
+      }
     },
   },
   "components": {
