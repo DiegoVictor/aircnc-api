@@ -472,6 +472,49 @@
           }
         }
       },
+      "Booking": {
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "user": {
+            "type": "object",
+            "allOf": [
+              {
+                "title": "User",
+                "properties": {
+                  "_id": {
+                    "type": "string"
+                  }
+                }
+              },
+              {
+                "$ref": "#/components/schemas/User"
+              }
+            ]
+          },
+          "spot": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Spot"
+              },
+              {
+                "properties": {
+                  "url": {
+                    "type": "string"
+                  }
+                }
+              }
+            ]
+          },
+          "approved": {
+            "type": "boolean"
+          },
+          "date": {
+            "type": "string"
+          }
+        }
+      },
       "Spot": {
         "properties": {
           "_id": {
