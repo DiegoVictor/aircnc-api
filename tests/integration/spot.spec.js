@@ -55,7 +55,7 @@ describe('Spot', () => {
       price,
       techs,
       user: spotUser,
-      thumbnail_url,
+      thumbnail,
     } = await factory.create('Spot');
 
     const response = await request(app)
@@ -64,11 +64,13 @@ describe('Spot', () => {
       .send();
 
     expect(response.body).toStrictEqual({
+      _id: expect.any(String),
       company,
       price,
       techs: [...techs],
       user: spotUser,
-      thumbnail_url,
+      thumbnail,
+      thumbnail_url: `${process.env.APP_URL}:${process.env.APP_PORT}/files/${thumbnail}`,
       bookings: [],
       url: `${url}/${_id}`,
     });
@@ -104,7 +106,7 @@ describe('Spot', () => {
 
     const response = await request(app)
       .post('/v1/spots')
-      .expect(400)
+      .expect(404)
       .set('Authorization', `Bearer ${token}`)
       .attach('thumbnail', filePath)
       .field('company', company)
@@ -112,7 +114,7 @@ describe('Spot', () => {
       .field('techs', techs.join(', '));
 
     expect(response.body).toMatchObject({
-      error: 'Bad Request',
+      error: 'Not Found',
       message: 'User does not exists',
     });
   });
@@ -181,10 +183,11 @@ describe('Spot', () => {
 
     const response = await request(app)
       .delete(`/v1/spots/${spot._id}`)
+      .expect(404)
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.body).toMatchObject({
-      error: 'Bad Request',
+      error: 'Not Found',
       message: 'Spot does not exists',
     });
   });
