@@ -19,7 +19,7 @@ factory.define('Spot', Spot, {
   user: null,
   company: faker.company.companyName,
   price: () => Number(faker.finance.amount()),
-  thumbnail: faker.image.image,
+  thumbnail: () => `${faker.lorem.word()}.jpg`,
   techs: () => {
     const techs = [];
     for (let i = 0; i < faker.datatype.number({ min: 1, max: 5 }); i += 1) {
