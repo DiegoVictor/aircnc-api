@@ -509,6 +509,52 @@
         }
       }
     },
+    "/dashboard": {
+      "get": {
+        "tags": ["Dashboard"],
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lists my spots",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Spot"
+                  }
+                },
+                "example": [
+                  {
+                    "_id": "6137ff047df7bd621838e146",
+                    "techs": [
+                      "Node.js",
+                      "ReactJS",
+                      "ReactNative"
+                    ],
+                    "user": "6137fee57df7bd621838e142",
+                    "company": "Blockcode",
+                    "price": 89,
+                    "thumbnail": "example-1631059716603.jpg",
+                    "thumbnail_url": "http://127.0.0.1:3333/files/example-1631059716603.jpg",
+                    "url": "http://localhost:3333/v1/spots/6137ff047df7bd621838e146"
+                  }
+                ]
+              }
+            },
+            "headers": {
+              "X-Total-Count": {
+                "$ref": "#/components/headers/X-Total-Count"
+              }
+            }
+          }
+        }
+      }
+    },
   },
   "components": {
     "schemas": {
