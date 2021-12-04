@@ -555,6 +555,36 @@
         }
       }
     },
+    "/pending": {
+      "get": {
+        "tags": ["Spots"],
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get my spots' pending requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Booking"
+                  }
+                },
+                "examples": {
+                  "bookings": {
+                    "$ref": "#/components/examples/bookings"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
   },
   "components": {
     "schemas": {
