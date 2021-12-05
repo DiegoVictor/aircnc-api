@@ -585,6 +585,41 @@
         }
       }
     },
+    "/bookings": {
+      "get": {
+        "tags": ["Bookings"],
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lists my bookings",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Booking"
+                  }
+                },
+                "examples": {
+                  "bookings": {
+                    "$ref": "#/components/examples/bookings"
+                  }
+                }
+              }
+            },
+            "headers": {
+              "X-Total-Count": {
+                "$ref": "#/components/headers/X-Total-Count"
+              }
+            }
+          }
+        }
+      }
+    },
   },
   "components": {
     "schemas": {
