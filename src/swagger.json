@@ -620,6 +620,58 @@
         }
       }
     },
+    "/bookings/{id}/approval": {
+      "post": {
+        "tags": ["Bookings"],
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Approve a booking request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Booking"
+                },
+                "examples": {
+                  "booking": {
+                    "$ref": "#/components/examples/booking"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Only the spot owner can approve bookings",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                },
+                "example": {
+                  "statusCode": 401,
+                  "error": "Unauthorized",
+                  "message": "Only the spot owner can approve bookings",
+                  "attributes": {
+                    "code": 342,
+                    "error": "Only the spot owner can approve bookings"
+                  },
+                  "docs": "https://github.com/DiegoVictor/aircnc-api#errors-reference"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
   },
   "components": {
     "schemas": {
