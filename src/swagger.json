@@ -827,7 +827,7 @@
         }
       },
       "bookings": {
-        "value": {
+        "value": [{
           "_id": "613804ba610cf66ad8e75cd0",
           "user": {
             "_id": "613803f4d36ba4650ca01b86",
@@ -846,7 +846,7 @@
             "url": "http://localhost:3333/v1/spots/613803f6d36ba4650ca01b89"
           },
           "date": "2021-11-02T02:16:52.000Z"
-        }
+        }]
       }
     },
     "parameters": {
