@@ -672,6 +672,74 @@
         }
       }
     },
+    "/bookings/{id}/rejection": {
+      "post": {
+        "tags": ["Bookings"],
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Reject a booking request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Booking"
+                },
+                "examples": {
+                  "booking": {
+                    "$ref": "#/components/examples/booking"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "You didn't request a booking to this spot or is not the spot owner",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                },
+                "examples": {
+                  "You didn't request a booking to this spot or is not the spot owner": {
+                    "value": {
+                      "statusCode": 401,
+                      "error": "Unauthorized",
+                      "message": "You didn't request a booking to this spot or is not the spot owner",
+                      "attributes": {
+                        "code": 343,
+                        "error": "You didn't request a booking to this spot or is not the spot owner"
+                      },
+                      "docs": "https://github.com/DiegoVictor/aircnc-api#errors-reference"
+                    }
+                  },
+                  "You can only cancel bookings with 24 hours in advance": {
+                    "value": {
+                      "statusCode": 401,
+                      "error": "Unauthorized",
+                      "message": "You can only cancel bookings with 24 hours in advance",
+                      "attributes": {
+                        "code": 345,
+                        "error": "You can only cancel bookings with 24 hours in advance"
+                      },
+                      "docs": "https://github.com/DiegoVictor/aircnc-api#errors-reference"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   },
   "components": {
     "schemas": {
