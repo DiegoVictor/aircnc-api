@@ -9,10 +9,11 @@ class RejectionController {
     const rejectBooking = new RejectBooking();
     const booking = await rejectBooking.execute({ booking_id, user });
 
-    if (user !== booking.user.toString()) {
+    const booking_user_id = booking.user._id.toString();
+    if (user !== booking_user_id) {
       const emitBooking = new EmitBooking();
       await emitBooking.execute({
-        user_id: booking.user,
+        user_id: booking_user_id,
         booking,
         event: 'booking_response',
       });
