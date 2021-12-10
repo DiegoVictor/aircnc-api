@@ -9,7 +9,9 @@ class ApproveBooking {
     const booking = await Booking.findOne({
       _id: booking_id,
       spot: { $in: spots.map((spot) => spot._id) },
-    }).populate('spot');
+    })
+      .populate('spot')
+      .populate('user');
 
     if (!booking) {
       throw unauthorized('Only the spot owner can approve bookings', 'sample', {
