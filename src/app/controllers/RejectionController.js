@@ -3,8 +3,7 @@ import RejectBooking from '../services/RejectBooking';
 
 class RejectionController {
   async store(req, res) {
-    const { user_id: user } = req;
-    const { booking_id } = req.params;
+    const { user_id: user, hostUrl } = req;
 
     const rejectBooking = new RejectBooking();
     const booking = await rejectBooking.execute({ booking_id, user });
@@ -19,7 +18,13 @@ class RejectionController {
       });
     }
 
-    return res.json(booking);
+    return res.json({
+      ...booking,
+      spot: {
+        ...booking.spot,
+        url: `${hostUrl}/v1/spots/${booking.spot._id}`,
+      },
+    });
   }
 }
 

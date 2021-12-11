@@ -34,8 +34,7 @@ class BookingController {
   }
 
   async store(req, res) {
-    const { user_id: user } = req;
-    const { spot_id: spot } = req.params;
+    const { user_id: user, hostUrl } = req;
     const { date } = req.body;
 
     let booking = await Booking.create({ user, spot, date });
@@ -49,7 +48,13 @@ class BookingController {
       event: 'booking_request',
     });
 
-    return res.json(booking);
+    return res.json({
+      ...booking.toJSON(),
+      spot: {
+        ...booking.spot.toJSON(),
+        url: `${hostUrl}/v1/spots/${booking.spot._id}`,
+      },
+    });
   }
 }
 

@@ -3,8 +3,7 @@ import ApproveBooking from '../services/ApproveBooking';
 
 class ApprovalController {
   async store(req, res) {
-    const { booking_id } = req.params;
-    const { user_id: user } = req;
+    const { user_id: user, hostUrl } = req;
 
     const approveBooking = new ApproveBooking();
     const booking = await approveBooking.execute({ booking_id, user });
@@ -19,7 +18,13 @@ class ApprovalController {
       });
     }
 
-    return res.json(booking);
+    return res.json({
+      ...booking,
+      spot: {
+        ...booking.spot,
+        url: `${hostUrl}/v1/spots/${booking.spot._id}`,
+      },
+    });
   }
 }
 
