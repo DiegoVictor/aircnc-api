@@ -4,6 +4,7 @@ import RejectBooking from '../services/RejectBooking';
 class RejectionController {
   async store(req, res) {
     const { user_id: user, hostUrl } = req;
+    const { id: booking_id } = req.params;
 
     const rejectBooking = new RejectBooking();
     const booking = await rejectBooking.execute({ booking_id, user });

@@ -35,6 +35,7 @@ class BookingController {
 
   async store(req, res) {
     const { user_id: user, hostUrl } = req;
+    const { id: spot } = req.params;
     const { date } = req.body;
 
     let booking = await Booking.create({ user, spot, date });

@@ -28,7 +28,12 @@ app.put(
   spotAndIdValidator,
   spotController.update
 );
-app.post('/:spot_id/booking', bookingValidator, bookingController.store);
+app.post(
+  '/:id/booking',
+  idValidator,
+  bookingValidator,
+  bookingController.store
+);
 app.delete('/:id', idValidator, spotController.destroy);
 
 export default app;

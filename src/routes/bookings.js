@@ -3,7 +3,7 @@ import { Router } from 'express';
 import BookingController from '../app/controllers/BookingController';
 import ApprovalController from '../app/controllers/ApprovalController';
 import RejectionController from '../app/controllers/RejectionController';
-import bookingIdValidator from '../app/validators/bookingIdValidator';
+import idValidator from '../app/validators/idValidator';
 
 const app = Router();
 
@@ -12,11 +12,7 @@ const approvalController = new ApprovalController();
 const rejectionController = new RejectionController();
 
 app.get('/', bookingController.index);
-app.post('/:booking_id/approval', bookingIdValidator, approvalController.store);
-app.post(
-  '/:booking_id/rejection',
-  bookingIdValidator,
-  rejectionController.store
-);
+app.post('/:id/approval', idValidator, approvalController.store);
+app.post('/:id/rejection', idValidator, rejectionController.store);
 
 export default app;
