@@ -49,7 +49,7 @@ class BookingController {
       event: 'booking_request',
     });
 
-    return res.json({
+    return res.status(201).json({
       ...booking.toJSON(),
       spot: {
         ...booking.spot.toJSON(),

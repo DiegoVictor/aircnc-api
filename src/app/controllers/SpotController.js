@@ -70,7 +70,7 @@ class SpotController {
       thumbnail: filename,
     });
 
-    return res.json(spot);
+    return res.status(201).json(spot);
   }
 
   async update(req, res) {
