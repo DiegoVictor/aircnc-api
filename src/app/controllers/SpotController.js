@@ -1,4 +1,4 @@
-import { badRequest } from '@hapi/boom';
+import { notFound } from '@hapi/boom';
 
 import Booking from '../models/Booking';
 import Spot from '../models/Spot';
@@ -59,7 +59,7 @@ class SpotController {
 
     const user = await User.findById(user_id);
     if (!user) {
-      throw badRequest('User does not exists', { code: 144 });
+      throw notFound('User does not exists', { code: 144 });
     }
 
     const spot = await Spot.create({
