@@ -29,23 +29,25 @@ class SpotController {
     const { currentUrl } = req;
     const { id } = req.params;
 
-    const [{ thumbnail_url, company, price, techs, user }, bookings] =
-      await Promise.all([
-        Spot.findById(id),
-        Booking.find({
-          spot: id,
-          date: { $gte: new Date() },
-          approved: true,
-        })
-          .limit(30)
-          .populate('user'),
-      ]);
+    const [
+      { thumbnail_url, thumbnail, company, price, techs, user },
+      bookings,
+    ] = await Promise.all([
+      Spot.findById(id),
+      Booking.find({
+        spot: id,
+        date: { $gte: new Date() },
+        approved: true,
+      }).populate('user'),
+    ]);
 
     return res.json({
+      _id: id,
       user,
       company,
       price,
       techs,
+      thumbnail,
       thumbnail_url,
       bookings,
       url: currentUrl,
