@@ -17,6 +17,7 @@ const SpotSchema = new Schema(
     toJSON: {
       virtuals: true,
     },
+    versionKey: false,
   }
 );
 
