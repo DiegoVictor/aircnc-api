@@ -1,4 +1,4 @@
-import { badRequest, unauthorized } from '@hapi/boom';
+import { notFound, unauthorized } from '@hapi/boom';
 
 import Booking from '../models/Booking';
 import Spot from '../models/Spot';
@@ -8,7 +8,7 @@ class DeleteSpot {
     const spot = await Spot.findOne({ _id, user });
 
     if (!spot) {
-      throw badRequest('Spot does not exists', { code: 344 });
+      throw notFound('Spot does not exists', { code: 344 });
     }
 
     const bookings = await Booking.find({
