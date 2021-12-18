@@ -90,11 +90,13 @@ describe('Rejection', () => {
   });
 
   it('should be able to emit a rejection booking event', async () => {
-    const { _id: bookingUserId } = await factory.create('User');
+    const spotUser = await factory.create('User');
+
     const spot = await factory.create('Spot', { user: user._id });
     const { _id: bookingId, date } = await factory.create('Booking', {
       spot: spot._id,
-      user: bookingUserId,
+      user: spotUser._id,
+      approved: false,
     });
     const socketId = faker.datatype.number();
 
@@ -102,7 +104,7 @@ describe('Rejection', () => {
       id: socketId,
       handshake: {
         query: {
-          user_id: bookingUserId.toString(),
+          user_id: spotUser._id.toString(),
         },
       },
     });
@@ -112,11 +114,12 @@ describe('Rejection', () => {
       .set('Authorization', `Bearer ${token}`);
 
     expect(to).toHaveBeenCalledWith(`${socketId}`);
-    expect(emit).toHaveBeenCalledWithMatch('booking_response', {
-      approved: false,
+    expect(emit).toHaveBeenCalledWith('booking_response', {
+      _id: bookingId,
       date,
+      approved: false,
+      user: spotUser.toJSON(),
       spot: spot.toJSON(),
-      user: bookingUserId,
     });
   });
 });
