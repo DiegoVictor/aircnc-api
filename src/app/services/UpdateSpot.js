@@ -1,12 +1,14 @@
 import Spot from '../models/Spot';
 
 class UpdateSpot {
-  async execute({ _id, company, file, price, techs = [], user }) {
-    const data = {
-      company,
-      price,
-      techs,
-    };
+  async execute({ _id, file, user, ...rest }) {
+    const data = { techs: [] };
+    ['company', 'price', 'techs'].forEach((field) => {
+      if (rest[field]) {
+        data[field] = rest[field];
+      }
+    });
+
     if (typeof file === 'object') {
       data.thumbnail = file.filename;
     }
