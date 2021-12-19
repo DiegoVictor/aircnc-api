@@ -13,7 +13,9 @@ class UpdateSpot {
       data.thumbnail = file.filename;
     }
 
-    data.techs = techs.split(',').map(tech => tech.trim());
+    if (rest.techs) {
+      data.techs = rest.techs.split(',').map((tech) => tech.trim());
+    }
 
     const spot = await Spot.findOneAndUpdate({ _id, user }, data, {
       new: true,
