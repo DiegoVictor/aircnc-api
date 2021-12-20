@@ -36,7 +36,7 @@ class RejectBooking {
     booking.approved = false;
     await booking.save();
 
-    return booking;
+    return booking.toJSON();
   }
 }
 
