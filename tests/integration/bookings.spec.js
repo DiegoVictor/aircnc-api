@@ -42,13 +42,15 @@ describe('Booking', () => {
       date: { $gte: new Date() },
       approved: { $ne: false },
       user: user._id,
-    }).populate('spot');
+    })
+      .populate('spot')
+      .populate('user');
 
     const response = await request(app)
       .get('/v1/bookings')
       .set('Authorization', `Bearer ${token}`);
 
-    bookings.forEach(booking => {
+    bookings.forEach((booking) => {
       expect(response.body).toContainEqual({
         ...booking.toJSON(),
         _id: booking._id.toString(),
@@ -59,7 +61,10 @@ describe('Booking', () => {
           thumbnail_url: `${process.env.APP_URL}:${process.env.APP_PORT}/files/${booking.spot.thumbnail}`,
           url: `${url}/${booking.spot._id}`,
         },
-        user: booking.user.toString(),
+        user: {
+          ...booking.user.toJSON(),
+          _id: booking.user._id.toString(),
+        },
         date: booking.date.toISOString(),
       });
     });
@@ -78,7 +83,7 @@ describe('Booking', () => {
         date,
       });
 
-    spot.techs.forEach(tech => {
+    spot.techs.forEach((tech) => {
       expect(response.body.spot.techs).toContainEqual(tech);
     });
 
