@@ -22,7 +22,7 @@ class ApproveBooking {
     booking.approved = true;
     await booking.save();
 
-    return booking;
+    return booking.toJSON();
   }
 }
 
