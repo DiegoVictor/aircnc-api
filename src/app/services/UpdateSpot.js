@@ -21,10 +21,7 @@ class UpdateSpot {
       new: true,
     });
 
-    return {
-      ...spot.toJSON(),
-      thumbnail: data.thumbnail,
-    };
+    return spot.toJSON();
   }
 }
 
