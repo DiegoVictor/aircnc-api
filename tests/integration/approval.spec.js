@@ -63,11 +63,12 @@ describe('Approval', () => {
   });
 
   it('should be able to emit a approved booking event', async () => {
-    const { _id: bookingUserId } = await factory.create('User');
+    const spotUser = await factory.create('User');
+
     const spot = await factory.create('Spot', { user: user._id });
     const { _id: bookingId, date } = await factory.create('Booking', {
       spot: spot._id,
-      user: bookingUserId,
+      user: spotUser._id,
     });
     const socketId = faker.datatype.number();
 
@@ -75,7 +76,7 @@ describe('Approval', () => {
       id: socketId,
       handshake: {
         query: {
-          user_id: bookingUserId.toString(),
+          user_id: spotUser._id.toString(),
         },
       },
     });
@@ -85,11 +86,12 @@ describe('Approval', () => {
       .set('Authorization', `Bearer ${token}`);
 
     expect(to).toHaveBeenCalledWith(`${socketId}`);
-    expect(emit).toHaveBeenCalledWithMatch('booking_response', {
+    expect(emit).toHaveBeenCalledWith('booking_response', {
+      _id: bookingId,
       approved: true,
       date,
       spot: spot.toJSON(),
-      user: bookingUserId,
+      user: spotUser.toJSON(),
     });
   });
 });
