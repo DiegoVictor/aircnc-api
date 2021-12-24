@@ -22,9 +22,7 @@ Responsible for provide data to the [`web`](https://github.com/DiegoVictor/aircn
 * [Usage](#usage)
   * [Error Handling](#error-handling)
     * [Errors Reference](#errors-reference)
-  * [Pagination](#pagination)
-    * [Link Header](#link-header)
-    * [X-Total-Count](#x-total-count)
+  * [X-Total-Count](#x-total-count)
   * [Bearer Token](#bearer-token)
   * [Versioning](#versioning)
   * [Routes](#routes)
@@ -113,26 +111,9 @@ Instead of only throw a simple message and HTTP Status Code this API return frie
 |344|Spot does not exists|The `id` sent not references an existing spot in the database.
 |345|You can only cancel bookings with 24 hours in advance|Is too late to cancel a book.
 
-## Pagination
-All the routes with pagination returns 10 records per page, to navigate to other pages just send the `page` query parameter with the number of the page.
 
-* To get the third page of spots:
-```
-GET http://localhost:3333/v1/spots?page=3
-```
-
-### Link Header
-Also in the headers of every route with pagination the `Link` header is returned with links to `first`, `last`, `next` and `prev` (previous) page.
-```
-<http://localhost:3333/v1/spots?page=7>; rel="last",
-<http://localhost:3333/v1/spots?page=4>; rel="next",
-<http://localhost:3333/v1/spots?page=1>; rel="first",
-<http://localhost:3333/v1/spots?page=2>; rel="prev"
-```
-> See more about this header in this MDN doc: [Link - HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Link).
-
-### X-Total-Count
-Another header returned in routes with pagination, this bring the total records amount.
+## X-Total-Count
+This header brings the records amount.
 
 ## Bearer Token
 A few routes expect a Bearer Token in an `Authorization` header.
@@ -149,20 +130,20 @@ GET http://localhost:3333/v1/spots
 ```
 
 ## Routes
-|route|HTTP Method|pagination|params|description|auth method
-|:---|:---:|:---:|:---:|:---:|:---:
-|`/sessions`|POST|:x:|Body with user `email`.|Authenticates user, return a Bearer Token and user's email.|:x:
-|`/bookings`|GET|:heavy_check_mark:|`page` query parameter.|Lists my bookings.|Bearer
-|`/bookings/:booking_id/rejection`|POST|:x:|`booking_id` of the rejected booking.|Reject a booking request.|Bearer
-|`/bookings/:booking_id/approval`|POST|:x:|`booking_id` of the approved booking.|Approve a booking request.|Bearer
-|`/spots/:spot_id/booking`|POST|:x:|`spot_id` of the booked spot.|Book a spot.|Bearer
-|`/dashboard`|GET|:heavy_check_mark:|`page` query parameter.|Lists my spots.|Bearer
-|`/pending`|GET|:x:| - |Get my spots' pending requests.|Bearer
-|`/spots`|GET|:heavy_check_mark:|`tech` and `page` query parameters.|Lists available spots by tech.|Bearer
-|`/spots/:id`|GET|:x:|`id` of the spot.|Return one spot.|Bearer
-|`/spots`|POST|:x:|Body with new spot [form data](https://developer.mozilla.org/docs/Web/API/FormData) (See insomnia file for good example).|Create a new spot.|Bearer
-|`/spots/:id`|PUT|:x:|`id` of the spot, body with spot's `thumbnail`, `techs`, `company` and `price` (See insomnia file for good example).|Update a spot.|Bearer
-|`/spots/:id`|DELETE|:x:|`id` of the spot.|Delete a spot.|Bearer
+|route|HTTP Method|params|description|auth method
+|:---|:---:|:---:|:---:|:---:
+|`/sessions`|POST|Body with user `email`.|Authenticates user, return a Bearer Token and user's email.|:x:
+|`/bookings`|GET| - |Lists my bookings.|Bearer
+|`/bookings/:id/rejection`|POST|`id` of the rejected booking.|Reject a booking request.|Bearer
+|`/bookings/:id/approval`|POST|`id` of the approved booking.|Approve a booking request.|Bearer
+|`/spots/:id/booking`|POST|`id` of the booked spot.|Book a spot.|Bearer
+|`/dashboard`|GET| - |Lists my spots.|Bearer
+|`/pending`|GET| - |Get my spots' pending requests.|Bearer
+|`/spots`|GET|`tech` query parameter.|Lists available spots by tech.|Bearer
+|`/spots/:id`|GET|`id` of the spot.|Return one spot.|Bearer
+|`/spots`|POST|Body with new spot [form data](https://developer.mozilla.org/docs/Web/API/FormData) (See insomnia file for good example).|Create a new spot.|Bearer
+|`/spots/:id`|PUT|`id` of the spot, body with spot's `thumbnail`, `techs`, `company` and `price` (See insomnia file for good example).|Update a spot.|Bearer
+|`/spots/:id`|DELETE|`id` of the spot.|Delete a spot.|Bearer
 > Routes with `Bearer` as auth method expect an `Authorization` header. See [Bearer Token](#bearer-token) section for more information.
 
 ### Requests
@@ -171,7 +152,7 @@ GET http://localhost:3333/v1/spots
 Request body:
 ```json
 {
-	"email": "johndoe@example.com"
+  "email": "johndoe@example.com"
 }
 ```
 
@@ -180,7 +161,7 @@ Request body:
 Request body:
 ```json
 {
-	"date": "2021-11-01T23:16:52"
+  "date": "2021-11-01T23:16:52"
 }
 ```
 
