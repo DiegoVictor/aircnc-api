@@ -1,5 +1,5 @@
 import request from 'supertest';
-import faker from 'faker';
+import faker from '@faker-js/faker';
 import path from 'path';
 import Mongoose from 'mongoose';
 
