@@ -1,9 +1,9 @@
-name: CI
+name: Pipeline
 on:
   push:
     branches: [ master ]
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     env:
       APP_URL: 'http://127.0.0.1'
