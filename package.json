@@ -9,7 +9,6 @@
     "test": "jest --runInBand"
   },
   "dependencies": {
-    "@faker-js/faker": "^6.3.1",
     "@hapi/boom": "^9.0.0",
     "celebrate": "^15.0.0",
     "cors": "^2.8.5",
@@ -27,6 +26,7 @@
     "yup": "^0.32.9"
   },
   "devDependencies": {
+    "@faker-js/faker": "^6.3.1",
     "@sucrase/jest-plugin": "^2.0.0",
     "@types/jest": "^26.0.24",
     "babel-eslint": "^10.0.3",
