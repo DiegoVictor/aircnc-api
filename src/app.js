@@ -25,7 +25,6 @@ app.use(routeAliases);
 app.use(express.json());
 
 app.use('/files', express.static(path.resolve(__dirname, '..', 'uploads')));
-app.use('/docs', swagger.serve, swagger.setup(swaggerDocument));
 app.use('/v1', routes);
 
 app.use(errors());
