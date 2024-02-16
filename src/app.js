@@ -8,9 +8,7 @@ import http from 'http';
 import helmet from 'helmet';
 import { errors } from 'celebrate';
 import { isBoom } from '@hapi/boom';
-import swagger from 'swagger-ui-express';
 
-import swaggerDocument from './swagger.json';
 import './database';
 import routes from './routes';
 import routeAliases from './app/middlewares/routeAliases';
