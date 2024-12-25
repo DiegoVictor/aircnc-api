@@ -1,5 +1,6 @@
 # [API] Aircnc
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/DiegoVictor/aircnc-api/config.yml?logo=github&style=flat-square)](https://github.com/DiegoVictor/aircnc-api/actions)
+[![mongodb](https://img.shields.io/badge/mongodb-3.6.10-13aa52?style=flat-square&logo=mongodb&logoColor=white)](https://mongodb.com/)
 [![redis](https://img.shields.io/badge/redis-3.1.2-d92b21?style=flat-square&logo=redis&logoColor=white)](https://redis.io/)
 [![nodemon](https://img.shields.io/badge/nodemon-2.0.12-76d04b?style=flat-square&logo=nodemon)](https://nodemon.io/)
 [![eslint](https://img.shields.io/badge/eslint-7.31.0-4b32c3?style=flat-square&logo=eslint)](https://eslint.org/)
