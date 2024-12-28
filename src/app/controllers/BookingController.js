@@ -38,9 +38,9 @@ class BookingController {
     const { id: spot } = req.params;
     const { date } = req.body;
 
-    let booking = await Booking.create({ user, spot, date });
+    const booking = await Booking.create({ user, spot, date });
 
-    booking = await booking.populate('spot').populate('user').execPopulate();
+    await Booking.populate(booking, [{ path: 'spot' }, { path: 'user' }]);
 
     const emitBooking = new EmitBooking();
     await emitBooking.execute({
