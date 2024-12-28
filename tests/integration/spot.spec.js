@@ -102,7 +102,7 @@ describe('Spot', () => {
     const filePath = path.resolve(__dirname, '..', 'files', 'example.jpg');
     const { company, techs, price } = await factory.attrs('Spot');
 
-    await user.remove();
+    await User.deleteOne({ _id: user._id });
 
     const response = await request(app)
       .post('/v1/spots')
@@ -179,7 +179,7 @@ describe('Spot', () => {
     const spot = await factory.create('Spot', {
       user: user._id,
     });
-    await spot.delete();
+    await Spot.deleteOne({ _id: spot._id });
 
     const response = await request(app)
       .delete(`/v1/spots/${spot._id}`)

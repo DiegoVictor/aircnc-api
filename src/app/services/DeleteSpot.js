@@ -25,7 +25,7 @@ class DeleteSpot {
       );
     }
 
-    await spot.remove();
+    await Spot.deleteOne({ _id });
 
     return spot;
   }
