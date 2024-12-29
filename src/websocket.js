@@ -1,5 +1,5 @@
 import Socket from 'socket.io';
-import redis from 'redis';
+import * as redis from 'redis';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import redisMock from 'redis-mock';
 
@@ -15,14 +15,14 @@ let io;
 export function setupWebSocket(server) {
   io = Socket(server);
 
-  io.on('connection', socket => {
+  io.on('connection', (socket) => {
     const { user_id } = socket.handshake.query;
     client.set(user_id.toString(), socket.id);
   });
 }
 
 export async function findConnection(id) {
-  const socketId = await new Promise(resolve => {
+  const socketId = await new Promise((resolve) => {
     client.get(id.toString(), (_, reply) => {
       resolve(reply);
     });
