@@ -25,10 +25,11 @@
     "yup": "^1.6.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/eslint-parser": "^7.25.9",
     "@faker-js/faker": "^9.3.0",
     "@sucrase/jest-plugin": "^3.0.0",
     "@types/jest": "^29.5.14",
-    "babel-eslint": "^10.0.3",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.18.2",
