@@ -70,7 +70,7 @@ describe('Approval', () => {
       spot: spot._id,
       user: spotUser._id,
     });
-    const socketId = faker.datatype.number();
+    const socketId = faker.number.int();
 
     connect({
       id: socketId,

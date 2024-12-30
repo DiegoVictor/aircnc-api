@@ -25,7 +25,7 @@ describe('Authenticate', () => {
     const response = await request(app)
       .get('/v1/developers')
       .expect(401)
-      .set('Authorization', faker.random.alphaNumeric(16))
+      .set('Authorization', faker.string.alphanumeric(16))
       .send();
 
     expect(response.body).toMatchObject({

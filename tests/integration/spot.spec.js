@@ -29,7 +29,7 @@ describe('Spot', () => {
   });
 
   it('should be able to get a list of spots', async () => {
-    const tech = faker.random.word();
+    const tech = faker.lorem.word();
 
     await factory.createMany('Spot', 3, { techs: [tech] });
 

@@ -98,7 +98,7 @@ describe('Rejection', () => {
       user: spotUser._id,
       approved: false,
     });
-    const socketId = faker.datatype.number();
+    const socketId = faker.number.int();
 
     connect({
       id: socketId,

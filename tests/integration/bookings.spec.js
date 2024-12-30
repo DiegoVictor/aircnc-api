@@ -103,7 +103,7 @@ describe('Booking', () => {
       user: spotOwnerId,
     });
     const date = faker.date.future();
-    const socketId = faker.datatype.number();
+    const socketId = faker.number.int();
 
     connect({
       id: socketId,

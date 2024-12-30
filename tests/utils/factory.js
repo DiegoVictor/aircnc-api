@@ -17,13 +17,13 @@ factory.define('User', User, {
 
 factory.define('Spot', Spot, {
   user: null,
-  company: faker.company.companyName,
+  company: faker.company.name,
   price: () => Number(faker.finance.amount()),
   thumbnail: () => `${faker.lorem.word()}.jpg`,
   techs: () => {
     const techs = [];
-    for (let i = 0; i < faker.datatype.number({ min: 1, max: 5 }); i += 1) {
-      techs.push(faker.random.word());
+    for (let i = 0; i < faker.number.int({ min: 1, max: 5 }); i += 1) {
+      techs.push(faker.lorem.word());
     }
     return techs;
   },
