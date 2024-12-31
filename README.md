@@ -1,11 +1,11 @@
 # [API] Aircnc
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/DiegoVictor/aircnc-api/config.yml?logo=github&style=flat-square)](https://github.com/DiegoVictor/aircnc-api/actions)
-[![mongodb](https://img.shields.io/badge/mongodb-3.6.10-13aa52?style=flat-square&logo=mongodb&logoColor=white)](https://mongodb.com/)
-[![redis](https://img.shields.io/badge/redis-3.1.2-d92b21?style=flat-square&logo=redis&logoColor=white)](https://redis.io/)
-[![nodemon](https://img.shields.io/badge/nodemon-2.0.12-76d04b?style=flat-square&logo=nodemon)](https://nodemon.io/)
-[![eslint](https://img.shields.io/badge/eslint-7.31.0-4b32c3?style=flat-square&logo=eslint)](https://eslint.org/)
+[![mongodb](https://img.shields.io/badge/mongodb-6.12.0-13aa52?style=flat-square&logo=mongodb&logoColor=white)](https://mongodb.com/)
+[![redis](https://img.shields.io/badge/redis-4.7.0-d92b21?style=flat-square&logo=redis&logoColor=white)](https://redis.io/)
+[![nodemon](https://img.shields.io/badge/nodemon-3.1.9-76d04b?style=flat-square&logo=nodemon)](https://nodemon.io/)
+[![eslint](https://img.shields.io/badge/eslint-8.57.1-4b32c3?style=flat-square&logo=eslint)](https://eslint.org/)
 [![airbnb-style](https://flat.badgen.net/badge/style-guide/airbnb/ff5a5f?icon=airbnb)](https://github.com/airbnb/javascript)
-[![jest](https://img.shields.io/badge/jest-26.6.3-brightgreen?style=flat-square&logo=jest)](https://jestjs.io/)
+[![jest](https://img.shields.io/badge/jest-29.7.0-brightgreen?style=flat-square&logo=jest)](https://jestjs.io/)
 [![coverage](https://img.shields.io/codecov/c/gh/DiegoVictor/aircnc-api?logo=codecov&style=flat-square)](https://codecov.io/gh/DiegoVictor/aircnc-api)
 [![MIT License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](https://raw.githubusercontent.com/DiegoVictor/aircnc-api/main/LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)<br>
