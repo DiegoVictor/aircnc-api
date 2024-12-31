@@ -17,9 +17,7 @@ describe('Session', () => {
   it('should be able to authenticate user', async () => {
     const { _id, email } = await factory.create('User');
 
-    const response = await request(app)
-      .post('/v1/sessions')
-      .send({ email });
+    const response = await request(app).post('/v1/sessions').send({ email });
 
     expect(response.body).toMatchObject({
       user: {
@@ -33,9 +31,7 @@ describe('Session', () => {
   it('should be able to authenticate with new user', async () => {
     const { email } = await factory.attrs('User');
 
-    const response = await request(app)
-      .post('/v1/sessions')
-      .send({ email });
+    const response = await request(app).post('/v1/sessions').send({ email });
 
     expect(response.body).toMatchObject({
       user: {

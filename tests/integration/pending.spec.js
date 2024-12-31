@@ -32,7 +32,7 @@ describe('Pending', () => {
       .get('/v1/pending')
       .set('Authorization', `Bearer ${token}`);
 
-    bookings.forEach(booking => {
+    bookings.forEach((booking) => {
       expect(response.body).toContainEqual(
         expect.objectContaining({
           _id: booking._id.toString(),

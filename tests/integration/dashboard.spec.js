@@ -33,7 +33,7 @@ describe('Dashboard', () => {
       .set('Authorization', `Bearer ${token}`)
       .send();
 
-    spots.forEach(spot => {
+    spots.forEach((spot) => {
       expect(response.body).toContainEqual({
         ...spot.toJSON(),
         _id: spot._id.toString(),
