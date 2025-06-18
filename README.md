@@ -17,9 +17,9 @@ Responsible for provide data to the [`web`](https://github.com/DiegoVictor/aircn
 ## Table of Contents
 * [Installing](#installing)
   * [Configuring](#configuring)
+    * [.env](#env)
     * [Redis](#redis)
     * [MongoDB](#mongodb)
-    * [.env](#env)
 * [Usage](#usage)
   * [Error Handling](#error-handling)
     * [Errors Reference](#errors-reference)
@@ -48,18 +48,6 @@ The application uses two databases: [MongoDB](https://www.mongodb.com/) and [Red
 $ docker-compose up -d
 ```
 
-### Redis
-Responsible to store data utilized by the websocket to alert users when books are made, approved or rejected. If for any reason you would like to create a Redis container instead of use `docker-compose`, you can do it by running the following command:
-```
-$ docker run --name aircnc-redis -d -p 6379:6379 redis:alpine
-```
-
-### MongoDB
-Responsible to store almost all application data. If for any reason you would like to create a MongoDB container instead of use `docker-compose`, you can do it by running the following command:
-```
-$ docker run --name aircnc-mongo -d -p 27017:27017 mongo
-```
-
 ### .env
 In this file you may configure your Redis and MongoDB database connection, JWT settings, the environment, app's port and a url to documentation (this will be returned with error responses, see [error section](#error-handling)). Rename the `.env.example` in the root directory to `.env` then just update with your settings.
 
@@ -74,6 +62,18 @@ In this file you may configure your Redis and MongoDB database connection, JWT s
 |REDIS_HOST|Redis host.|`redis`
 |REDIS_PORT|Redis port.|`6379`
 |DOCS_URL|An url to docs where users can find more information about the app's internal code errors.|`https://github.com/DiegoVictor/aircnc-api#errors-reference`
+
+### Redis
+Responsible to store data utilized by the websocket to alert users when books are made, approved or rejected. If for any reason you would like to create a Redis container instead of use `docker-compose`, you can do it by running the following command:
+```
+$ docker run --name aircnc-redis -d -p 6379:6379 redis:alpine
+```
+
+### MongoDB
+Responsible to store almost all application data. If for any reason you would like to create a MongoDB container instead of use `docker-compose`, you can do it by running the following command:
+```
+$ docker run --name aircnc-mongo -d -p 27017:27017 mongo
+```
 
 # Usage
 To start up the app run:
